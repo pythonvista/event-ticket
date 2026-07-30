@@ -17,6 +17,10 @@ if (!$booking) {
 if ($booking['status'] === 'confirmed') {
     redirect('confirmation.php?booking=' . urlencode($bookingRef));
 }
+if ($booking['status'] === 'cancelled') {
+    flash('This booking was cancelled and can no longer be paid.');
+    redirect('dashboard.php');
+}
 
 $unitPrice = $booking['total_amount'] / max(1, $booking['quantity']);
 $pageTitle = 'Payment';

@@ -59,7 +59,11 @@ require __DIR__ . '/includes/header.php';
 </div>
 <div class="text-center mb-5 no-print">
   <button class="btn btn-primary" onclick="window.print()">Print Ticket</button>
+  <?php if (!empty($_SESSION['admin_id'])): ?>
+  <a class="btn btn-outline-secondary" href="<?= BASE_URL ?>admin/bookings.php">Back to Bookings</a>
+  <?php else: ?>
   <a class="btn btn-outline-secondary" href="<?= BASE_URL ?>dashboard.php">Back to Dashboard</a>
+  <?php endif; ?>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 <script>

@@ -34,7 +34,7 @@ require __DIR__ . '/../includes/admin_header.php';
               <td><?= e($row['full_name']) ?></td>
               <td><?= e($row['event_name']) ?></td>
               <td><?= naira($row['total_amount']) ?></td>
-              <td><span class="badge bg-<?= $row['status'] === 'confirmed' ? 'success' : 'warning text-dark' ?>"><?= e(ucfirst($row['status'])) ?></span></td>
+              <td><span class="badge bg-<?= $row['status'] === 'confirmed' ? 'success' : ($row['status'] === 'pending' ? 'warning text-dark' : 'secondary') ?>"><?= e(ucfirst($row['status'])) ?></span></td>
               <td class="small text-muted"><?= e(date('j M Y H:i', strtotime($row['created_at']))) ?></td>
             </tr>
           <?php endforeach; ?>

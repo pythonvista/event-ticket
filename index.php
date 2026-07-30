@@ -22,7 +22,12 @@ require __DIR__ . '/includes/header.php';
 <section class="container my-5">
   <div class="row align-items-center g-4">
     <div class="col-md-6">
+      <?php $imagePath = __DIR__ . '/assets/img/' . $featured['image']; ?>
+      <?php if ($featured['image'] !== '' && is_file($imagePath)): ?>
       <img src="<?= BASE_URL ?>assets/img/<?= e($featured['image']) ?>" alt="<?= e($featured['name']) ?>" class="img-fluid rounded shadow">
+      <?php else: ?>
+      <div class="d-flex align-items-center justify-content-center bg-secondary text-white rounded shadow" style="height:300px"><?= e($featured['name']) ?></div>
+      <?php endif; ?>
     </div>
     <div class="col-md-6">
       <h2><?= e($featured['name']) ?></h2>

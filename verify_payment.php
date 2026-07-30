@@ -13,6 +13,10 @@ if (!$booking) {
 if ($booking['status'] === 'confirmed') {
     redirect('confirmation.php?booking=' . urlencode($bookingRef));
 }
+if ($booking['status'] === 'cancelled') {
+    flash('This booking was cancelled and can no longer be paid.');
+    redirect('dashboard.php');
+}
 
 $isDemo = isset($_POST['demo']) && PAYSTACK_SECRET_KEY === '';
 
@@ -28,12 +32,15 @@ if ($isDemo) {
         curl_setopt_array($ch, [
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_HTTPHEADER => ['Authorization: Bearer ' . PAYSTACK_SECRET_KEY],
+            CURLOPT_CONNECTTIMEOUT => 10,
+            CURLOPT_TIMEOUT => 30,
         ]);
         $response = json_decode((string) curl_exec($ch), true);
         curl_close($ch);
         $verified = $response
             && ($response['data']['status'] ?? '') === 'success'
-            && (int) ($response['data']['amount'] ?? 0) === (int) round($booking['total_amount'] * 100);
+            && (int) ($response['data']['amount'] ?? 0) === (int) round($booking['total_amount'] * 100)
+            && strpos($reference, $booking['booking_ref'] . '-') === 0;
     }
 }
 

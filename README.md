@@ -14,7 +14,7 @@ Visual Studio Code, XAMPP, phpMyAdmin, and Google Chrome.
 2. Put this project at `C:\xampp\htdocs\event-ticket`
    (or create a junction: `New-Item -ItemType Junction -Path C:\xampp\htdocs\event-ticket -Target <project folder>`).
 3. Import the database: open http://localhost/phpmyadmin → **Import** → choose `database.sql` → **Go**.
-   (Or from a terminal: `C:\xampp\mysql\bin\mysql.exe -u root < database.sql`)
+   (Or from a terminal — cmd: `C:\xampp\mysql\bin\mysql.exe -u root < database.sql`, PowerShell: `Get-Content database.sql -Raw | C:\xampp\mysql\bin\mysql.exe -u root`)
 4. Optional — real payments: create a free [Paystack](https://paystack.com) account, copy your **test** keys
    into `config/db.php` (`PAYSTACK_PUBLIC_KEY` = `pk_test_...`, `PAYSTACK_SECRET_KEY` = `sk_test_...`).
    With the keys blank, the site uses a **Demo Pay** button that always succeeds.
@@ -49,3 +49,4 @@ Visual Studio Code, XAMPP, phpMyAdmin, and Google Chrome.
 - Contact form does not store or send messages.
 - If Paystack verification fails with an SSL error, set `curl.cainfo` in `C:\xampp\php\php.ini` to a
   [cacert.pem](https://curl.se/docs/caextract.html) file and restart Apache.
+- Sessions are regenerated on login, but there is no further session hardening (no inactivity timeout or device tracking).

@@ -53,7 +53,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && in_array($action, ['add', 'edit'], 
     if ($venue === '') { $errors[] = 'Venue is required.'; }
     if ($regular <= 0 || $vip <= 0 || $vvip <= 0) { $errors[] = 'All three ticket prices must be greater than zero.'; }
 
-    $image = handle_image_upload($_FILES['image'] ?? [], $errors);
+    $image = $errors ? null : handle_image_upload($_FILES['image'] ?? [], $errors);
 
     if (!$errors) {
         if ($action === 'add') {
