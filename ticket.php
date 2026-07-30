@@ -27,7 +27,7 @@ if (!$booking) {
 }
 if ($booking['status'] !== 'confirmed') {
     flash('This booking has not been paid for yet.');
-    redirect('confirmation.php?booking=' . urlencode($bookingRef));
+    redirect(empty($_SESSION['admin_id']) ? 'confirmation.php?booking=' . urlencode($bookingRef) : 'admin/bookings.php');
 }
 
 $pageTitle = 'E-Ticket ' . $booking['booking_ref'];
