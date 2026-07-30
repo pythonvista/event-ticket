@@ -1,0 +1,29 @@
+.hero {
+    background: linear-gradient(135deg, #1a1a2e 0%, #e94560 100%);
+    color: #fff;
+    padding: 6rem 0;
+}
+.hero .display-4 { font-weight: 700; }
+.event-card img { height: 200px; object-fit: cover; }
+.event-card { transition: transform .15s ease; }
+.event-card:hover { transform: translateY(-4px); }
+
+/* E-ticket */
+.ticket {
+    max-width: 640px;
+    margin: 2rem auto;
+    border: 2px dashed #1a1a2e;
+    border-radius: 12px;
+    background: #fff;
+}
+.ticket .ticket-head {
+    background: #1a1a2e;
+    color: #fff;
+    border-radius: 10px 10px 0 0;
+}
+
+@media print {
+    .no-print { display: none !important; }
+    body { background: #fff !important; }
+    .ticket { margin: 0 auto; border-color: #000; }
+}
