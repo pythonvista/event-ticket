@@ -99,7 +99,7 @@ Database name: `event_ticket_db`. Five tables.
 | Column | Type | Notes |
 |---|---|---|
 | id | INT PK AUTO_INCREMENT | |
-| booking_ref | VARCHAR(20) UNIQUE | e.g. `DWL-2026-00042` |
+| booking_ref | VARCHAR(20) UNIQUE | e.g. `TKT-2026-00042` (generic prefix, works for any event) |
 | user_id | INT FK → users.id | |
 | event_id | INT FK → events.id | |
 | ticket_type | ENUM('regular','vip','vvip') | |
