@@ -4,16 +4,30 @@ if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 
-define('BASE_URL', '/event-ticket/');
+// Environment switch: XAMPP on this machine vs the live host.
+$isLocal = in_array($_SERVER['SERVER_NAME'] ?? 'localhost', ['localhost', '127.0.0.1'], true);
+
+if ($isLocal) {
+    define('BASE_URL', '/event-ticket/');
+    $dbDsn  = 'mysql:host=localhost;dbname=event_ticket_db;charset=utf8mb4';
+    $dbUser = 'root';
+    $dbPass = '';
+} else {
+    define('BASE_URL', '/');
+    $dbDsn  = 'mysql:host=sa180265xb.pxxldb.pxxl.pro;port=36390;dbname=pxxldb_19fc7793d763cb7;charset=utf8mb4';
+    $dbUser = 'pxxluser_19fc7793d750da1';
+    $dbPass = '&JF4cvZgXOJ7h4v8CGeCCKxH6JlVcAkH';
+}
+
 // Paystack TEST keys. Leave blank to enable the "Demo Pay" fallback button.
 define('PAYSTACK_PUBLIC_KEY', '');
 define('PAYSTACK_SECRET_KEY', '');
 
 try {
     $pdo = new PDO(
-        'mysql:host=localhost;dbname=event_ticket_db;charset=utf8mb4',
-        'root',
-        '',
+        $dbDsn,
+        $dbUser,
+        $dbPass,
         [
             PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
             PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
